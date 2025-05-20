@@ -4,7 +4,8 @@ import UIKit
 
 class NetworkManager {
     static let shared = NetworkManager()
-    private let baseURL = "http://localhost:5001/api"
+    let baseURL = "http://localhost:5001/api"
+    let imageBaseURL = "http://localhost:5001"
     var token: String?
     
     private init() {}
@@ -113,7 +114,13 @@ class NetworkManager {
             "Authorization": "Bearer \(token)"
         ]
         
-        AF.request("\(baseURL)/files/\(filename)",
+        // URL编码文件名
+        guard let encodedFilename = filename.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "文件名编码失败"])))
+            return
+        }
+        
+        AF.request("\(baseURL)/files/\(encodedFilename)",
                   method: .delete,
                   headers: headers)
             .responseDecodable(of: DeleteResponse.self) { response in
