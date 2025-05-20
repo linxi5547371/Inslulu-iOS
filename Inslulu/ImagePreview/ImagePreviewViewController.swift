@@ -42,6 +42,8 @@ class ImagePreviewViewController: UIViewController {
     // MARK: - Properties
     private var images: [FileInfo] = []
     private var isUploading = false
+    private var uploadQueue: [UIImage] = []
+    private var currentUploadIndex = 0
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -117,21 +119,43 @@ class ImagePreviewViewController: UIViewController {
         }
     }
     
-    private func uploadImage(_ image: UIImage) {
+    private func uploadImages(_ images: [UIImage]) {
         guard !isUploading else { return }
         isUploading = true
         loadingIndicator.startAnimating()
         
-        NetworkManager.shared.uploadFile(image: image) { [weak self] result in
-            self?.isUploading = false
-            self?.loadingIndicator.stopAnimating()
-            
+        // 准备上传队列
+        uploadQueue = images
+        currentUploadIndex = 0
+        
+        // 开始上传第一张图片
+        uploadNextImage()
+    }
+    
+    private func uploadNextImage() {
+        guard currentUploadIndex < uploadQueue.count else {
+            // 所有图片上传完成
+            isUploading = false
+            loadingIndicator.stopAnimating()
+            view.makeToast("所有图片上传完成")
+            fetchImages()
+            return
+        }
+        
+        let image = uploadQueue[currentUploadIndex]
+        let timestamp = Int(Date().timeIntervalSince1970)
+        let imageName = "image_\(timestamp)_\(currentUploadIndex + 1).jpg"
+        
+        NetworkManager.shared.uploadFile(image: image, filename: imageName) { [weak self] result in
             switch result {
             case .success(let response):
-                self?.view.makeToast("上传成功")
-                self?.fetchImages()
+                self?.view.makeToast("第\(self?.currentUploadIndex ?? 0 + 1)张图片上传成功")
+                self?.currentUploadIndex += 1
+                self?.uploadNextImage()
             case .failure(let error):
-                self?.view.makeToast("上传失败：\(error.localizedDescription)")
+                self?.view.makeToast("第\(self?.currentUploadIndex ?? 0 + 1)张图片上传失败：\(error.localizedDescription)")
+                self?.currentUploadIndex += 1
+                self?.uploadNextImage()
             }
         }
     }
@@ -162,9 +186,10 @@ extension ImagePreviewViewController: UICollectionViewDelegate {
 // MARK: - TLPhotosPickerViewControllerDelegate
 extension ImagePreviewViewController: TLPhotosPickerViewControllerDelegate {
     func dismissPhotoPicker(withTLPHAssets: [TLPHAsset]) {
-        guard let asset = withTLPHAssets.first,
-              let image = asset.fullResolutionImage else { return }
-        uploadImage(image)
+        let images = withTLPHAssets.compactMap { $0.fullResolutionImage }
+        if !images.isEmpty {
+            uploadImages(images)
+        }
     }
     
     func dismissPhotoPicker(withPHAssets: [PHAsset]) {
@@ -188,7 +213,7 @@ extension ImagePreviewViewController: TLPhotosPickerViewControllerDelegate {
 class ImageCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
     }()

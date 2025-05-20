@@ -53,7 +53,7 @@ class NetworkManager {
     }
     
     // MARK: - 上传文件
-    func uploadFile(image: UIImage, completion: @escaping (Result<UploadResponse, Error>) -> Void) {
+    func uploadFile(image: UIImage, filename: String = "image.jpg", completion: @escaping (Result<UploadResponse, Error>) -> Void) {
         guard let token = token else {
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "未登录"])))
             return
@@ -65,7 +65,7 @@ class NetworkManager {
         
         AF.upload(multipartFormData: { multipartFormData in
             if let imageData = image.jpegData(compressionQuality: 0.8) {
-                multipartFormData.append(imageData, withName: "file", fileName: "image.jpg", mimeType: "image/jpeg")
+                multipartFormData.append(imageData, withName: "file", fileName: filename, mimeType: "image/jpeg")
             }
         }, to: "\(baseURL)/upload", headers: headers)
         .responseDecodable(of: UploadResponse.self) { response in
