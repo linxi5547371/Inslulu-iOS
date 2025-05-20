@@ -5,7 +5,7 @@ import UIKit
 class NetworkManager {
     static let shared = NetworkManager()
     private let baseURL = "http://localhost:5001/api"
-    private var token: String?
+    var token: String?
     
     private init() {}
     
