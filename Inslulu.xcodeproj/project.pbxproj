@@ -6,8 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D04980C62DFF920F758A36E1 /* Pods_Inslulu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFF91AA5460770E305A062A /* Pods_Inslulu.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		3C7A4137ACAB6C032096BF47 /* Pods-Inslulu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Inslulu.release.xcconfig"; path = "Target Support Files/Pods-Inslulu/Pods-Inslulu.release.xcconfig"; sourceTree = "<group>"; };
+		5AFEB3A47D60B4A8CBF7744A /* Pods-Inslulu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Inslulu.debug.xcconfig"; path = "Target Support Files/Pods-Inslulu/Pods-Inslulu.debug.xcconfig"; sourceTree = "<group>"; };
 		797DC3982DDC2B7E00F918EF /* Inslulu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Inslulu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EFF91AA5460770E305A062A /* Pods_Inslulu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Inslulu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -36,17 +43,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D04980C62DFF920F758A36E1 /* Pods_Inslulu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		30F8E831A68B6B5A8C636DA8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5AFEB3A47D60B4A8CBF7744A /* Pods-Inslulu.debug.xcconfig */,
+				3C7A4137ACAB6C032096BF47 /* Pods-Inslulu.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		797DC38F2DDC2B7E00F918EF = {
 			isa = PBXGroup;
 			children = (
 				797DC39A2DDC2B7E00F918EF /* Inslulu */,
 				797DC3992DDC2B7E00F918EF /* Products */,
+				30F8E831A68B6B5A8C636DA8 /* Pods */,
+				EB3B94F4BF6F0523BB8629EA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +77,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		EB3B94F4BF6F0523BB8629EA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9EFF91AA5460770E305A062A /* Pods_Inslulu.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -65,9 +92,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 797DC3AB2DDC2B7F00F918EF /* Build configuration list for PBXNativeTarget "Inslulu" */;
 			buildPhases = (
+				6CB6FA743FBBB803C877569A /* [CP] Check Pods Manifest.lock */,
 				797DC3942DDC2B7E00F918EF /* Sources */,
 				797DC3952DDC2B7E00F918EF /* Frameworks */,
 				797DC3962DDC2B7E00F918EF /* Resources */,
+				053A59E36E90AACF57706A86 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -77,8 +106,6 @@
 				797DC39A2DDC2B7E00F918EF /* Inslulu */,
 			);
 			name = Inslulu;
-			packageProductDependencies = (
-			);
 			productName = Inslulu;
 			productReference = 797DC3982DDC2B7E00F918EF /* Inslulu.app */;
 			productType = "com.apple.product-type.application";
@@ -127,6 +154,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		053A59E36E90AACF57706A86 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Inslulu/Pods-Inslulu-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Inslulu/Pods-Inslulu-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Inslulu/Pods-Inslulu-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6CB6FA743FBBB803C877569A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Inslulu-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		797DC3942DDC2B7E00F918EF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -140,6 +209,7 @@
 /* Begin XCBuildConfiguration section */
 		797DC3AC2DDC2B7F00F918EF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5AFEB3A47D60B4A8CBF7744A /* Pods-Inslulu.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -168,6 +238,7 @@
 		};
 		797DC3AD2DDC2B7F00F918EF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3C7A4137ACAB6C032096BF47 /* Pods-Inslulu.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
